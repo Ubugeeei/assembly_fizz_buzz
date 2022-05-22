@@ -5,7 +5,8 @@ global	start
 section	.text
 
 start:
-	jmp	print_fizz_buzz
+	mov	rcx, 0
+	jmp	fizz_buzz_loop
 
 
 exit:
@@ -13,6 +14,25 @@ exit:
 	xor	rdi, rdi
 	syscall
 	
+
+fizz_buzz_loop:
+	mov	rax, 0x02000004 ; syscall: write
+	mov	rdi, 0x01
+	mov	rsi, fizz; val
+	mov	rdx, 0x05 ; len
+	push rcx
+	syscall
+
+
+	; TODO fizz_buzz proccess
+
+
+	pop	rcx
+	inc	rcx
+	cmp	rcx, 10
+	jl	fizz_buzz_loop
+
+	jmp	exit
 
 print_fizz:
 	mov	rax, 0x02000004 ; syscall: write
