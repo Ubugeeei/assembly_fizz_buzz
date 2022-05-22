@@ -5,14 +5,38 @@ global	start
 section	.text
 
 start:
-	mov	rax, 0x02000004 ; syscall: write
-	mov	rdi, 0x01
-	mov	rsi, fizz ; val
-	mov	rdx, 0xff ; len
-	syscall
+	jmp	print_fizz_buzz
+
+
+exit:
 	mov	rax, 0x02000001 ; syscall: exit
 	xor	rdi, rdi
 	syscall
+	
+
+print_fizz:
+	mov	rax, 0x02000004 ; syscall: write
+	mov	rdi, 0x01
+	mov	rsi, fizz ; val
+	mov	rdx, 0x05 ; len
+	syscall
+	jmp	exit
+
+print_buzz:
+	mov	rax, 0x02000004 ; syscall: write
+	mov	rdi, 0x01
+	mov	rsi, buzz ; val
+	mov	rdx, 0x05 ; len
+	syscall
+	jmp	exit
+
+print_fizz_buzz:
+	mov	rax, 0x02000004 ; syscall: write
+	mov	rdi, 0x01
+	mov	rsi, fizz_buzz ; val
+	mov	rdx, 0x0a ; len
+	syscall
+	jmp	exit
 
 section	.data
 
